@@ -31,7 +31,6 @@
 #  invited_by_type        :string
 #  invited_by_id          :bigint
 #  invitations_count      :integer          default(0)
-#  preferences_enabled    :boolean          default(TRUE), not null
 #
 # Indexes
 #
@@ -52,6 +51,8 @@ class User < ApplicationRecord
 
   validates :uid, uniqueness: { scope: :provider }
   validates :email, uniqueness: true, on: :update
+
+  has_many :preferences, dependent: :destroy
 
   attribute :impersonated_by, :integer
 
